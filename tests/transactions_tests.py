@@ -9,7 +9,7 @@ import unittest
 import os
 from unittest import expectedFailure, TestCase
 
-from bank_accounts.src.bank_accounts.transactions import Transaction, TransactionList
+from bank_accounts.transactions import Transaction, TransactionList
 
 
 class TestTransaction(TestCase):
@@ -108,7 +108,7 @@ class TestTransactionList(TestCase):
         self.transactions.append(Transaction(date, account, "W", 12))
         self.transactions.append(Transaction(date, "S06789", "D", 3))
 
-        filename = "bank_accounts\\tests\\transactions_tst.dat"
+        filename = "transactions_tst.dat"
         self.transactions.save(filename)
 
         self.assertTrue(os.path.isfile(filename))
@@ -125,7 +125,7 @@ class TestTransactionList(TestCase):
         self.transactions.append(Transaction(date, account, "W", 12))
         self.transactions.append(Transaction(date, "C06789", "D", 3))
 
-        filename = "bank_accounts\\tests\\transactions_tst.dat"
+        filename = "transactions_tst.dat"
         self.transactions.save(filename)
 
         loaded = TransactionList.load(filename)

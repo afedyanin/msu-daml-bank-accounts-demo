@@ -7,7 +7,7 @@
 import unittest
 from unittest import TestCase
 
-from bank_accounts.src.bank_accounts.application import bank_app
+from bank_accounts.application import bank_app
 
 
 class TestApplication(TestCase):

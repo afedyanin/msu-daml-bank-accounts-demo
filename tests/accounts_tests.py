@@ -8,7 +8,7 @@ import unittest
 import os
 from unittest import expectedFailure, TestCase
 
-from bank_accounts.src.bank_accounts.accounts import CurrentAccount, SavingAccount, AccountDict, DEFAULT_MIN_LIMIT, DEFAULT_MAX_LIMIT
+from bank_accounts.accounts import CurrentAccount, SavingAccount, AccountDict, DEFAULT_MIN_LIMIT, DEFAULT_MAX_LIMIT
 
 
 class TestAccount(TestCase):
@@ -192,7 +192,7 @@ class TestAccountList(TestCase):
         self.accounts.append(CurrentAccount("C00001", "Петр Иванов", 1320.56))
         self.accounts.append(SavingAccount("S00001", "Иван Сидоров", 1320.56))
 
-        filename = "bank_accounts\\tests\\accounts_tst.dat"
+        filename = "accounts_tst.dat"
         self.accounts.save(filename)
 
         self.assertTrue(os.path.isfile(filename))
@@ -205,7 +205,7 @@ class TestAccountList(TestCase):
         self.accounts.append(CurrentAccount("C00001", "Петр Иванов", 1320.56))
         self.accounts.append(SavingAccount("S00001", "Иван Сидоров", 1320.56))
 
-        filename = "bank_accounts\\tests\\accounts_tst.dat"
+        filename = "accounts_tst.dat"
         self.accounts.save(filename)
 
         loaded = AccountDict.load(filename)
@@ -246,7 +246,7 @@ class TestAccountList(TestCase):
         acc2 = CurrentAccount("C12345", "Андрей Первый", 1230)
         self.accounts.append(acc2)
 
-        filename = "bank_accounts\\tests\\accounts_tst.dat"
+        filename = "accounts_tst.dat"
         self.accounts.save(filename)
 
         new_dict = self.accounts.load(filename)
