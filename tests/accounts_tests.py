@@ -6,6 +6,7 @@
 
 import unittest
 import os
+from pathlib import Path
 from unittest import expectedFailure, TestCase
 
 from bank_accounts.accounts import CurrentAccount, SavingAccount, AccountDict, DEFAULT_MIN_LIMIT, DEFAULT_MAX_LIMIT
@@ -27,19 +28,17 @@ class TestAccount(TestCase):
         self.assertEqual(acc.customer_name, customer_name)
         self.assertEqual(acc.balance, balance)
 
-    @expectedFailure
     def test_invalid_saving_account_type(self):
         """
         Некорректный тип счета
         """
-        _ = SavingAccount("С12345", "Владимир Петров", 213.98)
+        self.assertRaises(ValueError, SavingAccount, "С12345", "Владимир Петров", 213.98)
 
-    @expectedFailure
     def test_invalid_saving_account_number(self):
         """
         Некорректный номер счета
         """
-        _ = SavingAccount("S045AA", "Владимир Петров", 213.98)
+        self.assertRaises(ValueError, SavingAccount, "S045AA", "Владимир Петров", 213.98)
 
     def test_create_current_account(self):
         """
@@ -55,32 +54,23 @@ class TestAccount(TestCase):
         self.assertEqual(acc.customer_name, customer_name)
         self.assertEqual(acc.balance, balance)
 
-    @expectedFailure
     def test_invalid_current_account_type(self):
         """
         Некорректный тип счета
         """
-        _ = CurrentAccount("W12345", "Владимир Петров", 213.98)
+        self.assertRaises(ValueError, CurrentAccount, "W12345", "Владимир Петров", 213.98)
 
-    @expectedFailure
     def test_invalid_current_account_number(self):
         """
         Некорректный номер счета
         """
-        _ = CurrentAccount("C0045", "Владимир Петров", 213.98)
+        self.assertRaises(ValueError, CurrentAccount, "C0045", "Владимир Петров", 213.98)
 
-    @expectedFailure
     def test_invalid_customer_name(self):
         """
         Некорректное имя клиента
         """
-        _ = SavingAccount("С12345", "    ", 213.98)
-
-    def test_invalid_balance(self):
-        """
-        Отрицательная первоначальная сумма
-        """
-        _ = SavingAccount("S12345", "Владимир Петров", -9897.36)
+        self.assertRaises(ValueError, CurrentAccount, "С12345", "    ", 213.98)
 
     def test_set_balance(self):
         """
@@ -122,23 +112,23 @@ class TestAccount(TestCase):
         acc.withdraw(150)
         self.assertEqual(acc.balance, 100+30-150)
 
-    @expectedFailure
     def test_set_limits_max(self):
         """
         Превышение лимита по максимальной сумме
         """
         acc = CurrentAccount("C12345", "Иван Стулов", 100.00)
         acc.set_limits(20, 120)
-        acc.deposit(200)
 
-    @expectedFailure
+        self.assertRaises(ValueError, acc.deposit, 200)
+
     def test_set_limits_min(self):
         """
         Превышение лимита по минимальной сумме
         """
         acc = CurrentAccount("C12345", "Иван Стулов", 100.00)
         acc.set_limits(20, 120)
-        acc.withdraw(95)
+
+        self.assertRaises(ValueError, acc.withdraw, 95)
 
 
 class TestAccountList(TestCase):
@@ -157,7 +147,6 @@ class TestAccountList(TestCase):
         self.accounts.append(acc)
         self.assertEqual(len(self.accounts), 1)
 
-    @expectedFailure
     def test_add_account_twice(self):
         """
         Добавить повторно счет с уже существующим номером
@@ -168,7 +157,8 @@ class TestAccountList(TestCase):
 
         acc = SavingAccount(account, customer_name, balance)
         self.accounts.append(acc)
-        self.accounts.append(acc)
+
+        self.assertRaises(ValueError, self.accounts.append, acc)
 
     def test_search_account(self):
         """
@@ -192,7 +182,7 @@ class TestAccountList(TestCase):
         self.accounts.append(CurrentAccount("C00001", "Петр Иванов", 1320.56))
         self.accounts.append(SavingAccount("S00001", "Иван Сидоров", 1320.56))
 
-        filename = "accounts_tst.dat"
+        filename = Path("accounts_tst.dat")
         self.accounts.save(filename)
 
         self.assertTrue(os.path.isfile(filename))
@@ -205,7 +195,7 @@ class TestAccountList(TestCase):
         self.accounts.append(CurrentAccount("C00001", "Петр Иванов", 1320.56))
         self.accounts.append(SavingAccount("S00001", "Иван Сидоров", 1320.56))
 
-        filename = "accounts_tst.dat"
+        filename = Path("accounts_tst.dat")
         self.accounts.save(filename)
 
         loaded = AccountDict.load(filename)
@@ -246,7 +236,7 @@ class TestAccountList(TestCase):
         acc2 = CurrentAccount("C12345", "Андрей Первый", 1230)
         self.accounts.append(acc2)
 
-        filename = "accounts_tst.dat"
+        filename = Path("accounts_tst.dat")
         self.accounts.save(filename)
 
         new_dict = self.accounts.load(filename)

@@ -7,6 +7,7 @@
 import datetime
 import unittest
 import os
+from pathlib import Path
 from unittest import expectedFailure, TestCase
 
 from bank_accounts.transactions import Transaction, TransactionList
@@ -30,7 +31,6 @@ class TestTransaction(TestCase):
         self.assertEqual(txn.txn_type, txn_type)
         self.assertEqual(txn.amount, amount)
 
-    @expectedFailure
     def test_invalid_txn_type(self):
         """ Неправильный тип транзакции """
         account = "S12345"
@@ -38,10 +38,8 @@ class TestTransaction(TestCase):
         amount = 123.56
         date = datetime.datetime.now()
 
-        txn = Transaction(date, account, txn_type, amount)
-        self.assertEqual(txn.txn_type, txn_type)
+        self.assertRaises(ValueError, Transaction, date, account, txn_type, amount)
 
-    @expectedFailure
     def test_invalid_amount(self):
         """ Некорректная сумма """
         account = "S12345"
@@ -49,10 +47,8 @@ class TestTransaction(TestCase):
         amount = -123.56
         date = datetime.datetime.now()
 
-        txn = Transaction(date, account, txn_type, amount)
-        self.assertEqual(txn.txn_type, txn_type)
+        self.assertRaises(ValueError, Transaction, date, account, txn_type, amount)
 
-    @expectedFailure
     def test_invalid_account(self):
         """ Некорректный номер счета """
         account = "12ABC5E"
@@ -60,8 +56,7 @@ class TestTransaction(TestCase):
         amount = 123.56
         date = datetime.datetime.now()
 
-        txn = Transaction(date, account, txn_type, amount)
-        self.assertEqual(txn.txn_type, txn_type)
+        self.assertRaises(ValueError, Transaction, date, account, txn_type, amount)
 
 
 class TestTransactionList(TestCase):
@@ -108,7 +103,7 @@ class TestTransactionList(TestCase):
         self.transactions.append(Transaction(date, account, "W", 12))
         self.transactions.append(Transaction(date, "S06789", "D", 3))
 
-        filename = "transactions_tst.dat"
+        filename = Path("transactions_tst.dat")
         self.transactions.save(filename)
 
         self.assertTrue(os.path.isfile(filename))
@@ -125,7 +120,7 @@ class TestTransactionList(TestCase):
         self.transactions.append(Transaction(date, account, "W", 12))
         self.transactions.append(Transaction(date, "C06789", "D", 3))
 
-        filename = "transactions_tst.dat"
+        filename = Path("transactions_tst.dat")
         self.transactions.save(filename)
 
         loaded = TransactionList.load(filename)

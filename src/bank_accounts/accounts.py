@@ -4,6 +4,9 @@
 Реестр банковских счетов
 """
 from __future__ import annotations
+
+from pathlib import Path
+
 from rich.table import Table
 
 # Максимальная сумма на счете по умолчанию
@@ -38,7 +41,7 @@ class AccountDict(dict[str, "Account"]):
             raise ValueError(f"Счет с номером {acc.account_number} уже существует.")
         self[acc.account_number] = acc
 
-    def save(self, file_name: str) -> None:
+    def save(self, file_name: Path) -> None:
         """
         Сохранение списка счетов в указанный файл.
         Если файл уже существует, он будет перезаписан.
@@ -48,7 +51,7 @@ class AccountDict(dict[str, "Account"]):
                 f.write(f"{account.dump()}\n")
 
     @staticmethod
-    def load(file_name: str) -> AccountDict:
+    def load(file_name: Path) -> AccountDict:
         """
         Загрузка списка счетов из файла.
         Возвращает новый реестр счетов.

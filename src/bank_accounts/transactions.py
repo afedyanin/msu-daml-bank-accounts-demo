@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 import datetime
+from pathlib import Path
 
 from rich.table import Table
 from accounts import ACC_TYPE_SAVING, ACC_TYPE_CURRENT
@@ -34,7 +35,7 @@ class TransactionList(list["Transaction"]):
                 matching_items.append(txn)
         return matching_items
 
-    def save(self, file_name: str) -> None:
+    def save(self, file_name: Path) -> None:
         """
         Сохранение списка транзакций в указанный файл.
         Если файл уже существует, он будет перезаписан.
@@ -44,7 +45,7 @@ class TransactionList(list["Transaction"]):
                 f.write(f"{txn.dump()}\n")
 
     @staticmethod
-    def load(file_name: str) -> TransactionList:
+    def load(file_name: Path) -> TransactionList:
         """
         Загрузка списка транзакций из файла.
         Возвращает новый реестр транзакций.

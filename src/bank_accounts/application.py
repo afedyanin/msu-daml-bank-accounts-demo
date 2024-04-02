@@ -6,21 +6,23 @@
 from __future__ import annotations
 
 import datetime
+from pathlib import Path
 
+from rich.console import Console
 from rich.table import Table
 
 from accounts import AccountDict, Account, SavingAccount, CurrentAccount, ACC_TYPE_SAVING, ACC_TYPE_CURRENT
 from transactions import TransactionList, Transaction, TXN_TYPE_DEPOSIT, TXN_TYPE_WITHDRAW
 
 # Файл для хранения счетов
-ACCOUNTS_FILE_NAME = "data/ACCOUNTS.DAT"
+ACCOUNTS_FILE_NAME = Path("data/ACCOUNTS.DAT")
 
 # Файл для хранения транзакций
-TRANSACTIONS_FILE_NAME = "data/TRANSACTIONS.DAT"
+TRANSACTIONS_FILE_NAME = Path("data/TRANSACTIONS.DAT")
 
 
 class Application:
-    def __init__(self, accounts_file: str, transactions_file: str) -> None:
+    def __init__(self, accounts_file: Path, transactions_file: Path) -> None:
         self.__accounts = AccountDict.load(accounts_file)
         self.__transactions = TransactionList.load(transactions_file)
         self._init_accounts()
@@ -99,19 +101,19 @@ class Application:
         """
         return self.__transactions.to_table_view(account_num)
 
-    def save_transactions(self, file_name: str = TRANSACTIONS_FILE_NAME) -> None:
+    def save_transactions(self, file_name: Path = TRANSACTIONS_FILE_NAME) -> None:
         """
         Выгрузить историю транзакций в файл.
         """
         self.__transactions.save(file_name)
 
-    def save_accounts(self, file_name: str = ACCOUNTS_FILE_NAME) -> None:
+    def save_accounts(self, file_name: Path = ACCOUNTS_FILE_NAME) -> None:
         """
         Выгрузить счета в файл
         """
         self.__accounts.save(file_name)
 
-    def import_data(self, accounts_file: str, transactions_file: str) -> None:
+    def import_data(self, accounts_file: Path, transactions_file: Path) -> None:
         """
         Импортировать данные из файлов и проинициализировать систему
         """
@@ -135,6 +137,8 @@ class Application:
 bank_app = Application(ACCOUNTS_FILE_NAME, TRANSACTIONS_FILE_NAME)
 
 if __name__ == "__main__":
-    for acc in bank_app.get_all_accounts():
-        acc.display_monthly_statement()
-        print("\n")
+    console = Console()
+    accounts = bank_app.get_all_accounts()
+    console.print(accounts)
+
+

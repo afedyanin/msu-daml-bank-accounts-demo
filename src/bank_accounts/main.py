@@ -7,6 +7,8 @@
 
 import click
 import logging
+
+from click import Path
 from rich.console import Console
 
 from application import bank_app
@@ -99,7 +101,7 @@ def details(account: str) -> None:
 
 @click.command()
 @click.argument("filename", type=click.Path(exists=False), required=1)
-def export_transactions(filename: str) -> None:
+def export_transactions(filename: Path) -> None:
     """
     Выгрузить историю транзакций в файл.
     """
@@ -112,7 +114,7 @@ def export_transactions(filename: str) -> None:
 
 @click.command()
 @click.argument("filename", type=click.Path(exists=False), required=1)
-def export_accounts(filename: str) -> None:
+def export_accounts(filename: Path) -> None:
     """
     Выгрузить реестр счетов в файл
     """
@@ -126,7 +128,7 @@ def export_accounts(filename: str) -> None:
 @click.command()
 @click.argument("accounts_file", type=click.Path(exists=True), required=1)
 @click.argument("transactions_file", type=click.Path(exists=True), required=1)
-def import_data(accounts_file: str, transactions_file: str) -> None:
+def import_data(accounts_file: Path, transactions_file: Path) -> None:
     """
     Загрузить счета и транзакции в систему.
     Система будет инициализирована данными из файлов.
