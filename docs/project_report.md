@@ -212,7 +212,7 @@
 Пример вызова команды:
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py add-account --help
+PS C:\demo\src\bank_accounts> python main.py add-account --help
 Usage: main.py add-account [OPTIONS] [[S|C]] [BALANCE]
 
   Добавить новый счет.
@@ -279,7 +279,7 @@ Options:
 ### 6.1 Добавление сберегательного счета
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py add-account S 1500
+PS C:\demo\src\bank_accounts> python main.py add-account S 1500
 Введите имя пользователя: Иван Табуреткин
 2024-04-03 11:39:20,197 - __main__ - INFO - Создан новый счет #S00003
 Номер счета: S00003
@@ -289,7 +289,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ### 6.2 Добавление текущего счета
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py add-account C 3500
+PS C:\demo\src\bank_accounts> python main.py add-account C 3500
 Введите имя пользователя: Степан Капуста
 2024-04-03 11:41:30,472 - __main__ - INFO - Создан новый счет #C00009
 Номер счета: C00009
@@ -301,7 +301,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ### 6.3 Внесение депозита на счет
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py deposit S00003 --amount 200
+PS C:\demo\src\bank_accounts> python main.py deposit S00003 --amount 200
 2024-04-03 11:43:40,542 - __main__ - INFO - Внесен депозит на счет #:S00003
 Номер счета: S00003
 Клиент: Иван Табуреткин
@@ -312,7 +312,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ### 6.4 Установка лимитов по счету
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py set-limits C00009             
+PS C:\demo\src\bank_accounts> python main.py set-limits C00009             
 Введите минимальный остаток на счете: 2000
 Введите максимальную сумму на счете: 5000
 2024-04-03 11:46:05,176 - __main__ - INFO - Установлены лимиты по счету #:C00009
@@ -326,7 +326,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ### 6.4 Списание со счета
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py withdraw C00009 --amount 200
+PS C:\demo\src\bank_accounts> python main.py withdraw C00009 --amount 200
 2024-04-03 11:48:15,395 - __main__ - INFO - Списана сумма со счета #:C00009
 Номер счета: C00009
 Клиент: Степан Капуста
@@ -334,7 +334,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 Минимальный лимит: 2000.00
 Максимальный лимит: 5000.00
 
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py withdraw C00009
+PS C:\demo\src\bank_accounts> python main.py withdraw C00009
 Введите сумму снятия: 600
 2024-04-03 11:48:24,303 - __main__ - INFO - Списана сумма со счета #:C00009
 Номер счета: C00009
@@ -343,7 +343,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 Минимальный лимит: 2000.00
 Максимальный лимит: 5000.00
 
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py withdraw C00009 --amount 1500
+PS C:\demo\src\bank_accounts> python main.py withdraw C00009 --amount 1500
 2024-04-03 11:48:40,939 - __main__ - ERROR - Ошибка при списании средств со счета #C00009: Достигнуто ограничение по минимальной сумме на счете 2000.0
 
 
@@ -354,7 +354,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ## 7.1 Выписка по счету
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py details C00009               
+PS C:\demo\src\bank_accounts> python main.py details C00009               
 Ежемесячный отчет по текущему счету
 Номер счета: C00009
 Клиент: Степан Капуста
@@ -362,7 +362,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 Минимальный лимит: 2000.00
 Максимальный лимит: 5000.00
 
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py details S00003 
+PS C:\demo\src\bank_accounts> python main.py details S00003 
 Ежемесячная выписка по сберегательному счету 
 Номер счета: S00003
 Клиент: Иван Табуреткин
@@ -372,7 +372,7 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ## 7.2 История транзакций по счету
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py all-transactions C00009
+PS C:\demo\src\bank_accounts> python main.py all-transactions C00009
 Номер счета: C00009
 Клиент: Степан Капуста
 Баланс: 2700.00
@@ -390,23 +390,23 @@ PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accoun
 ## 7.3 Реестр всех счетов
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py all-accounts          
-┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
-┃ #      ┃ Тип счета       ┃ Пользователь                  ┃          Баланс ┃      Мин. лимит ┃     Макс. лимит ┃
-┡━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
-│ C00005 │ Текущий         │ Robert Yeo                    │         -144.62 │                 │                 │
-│ C00008 │ Текущий         │ Lim Ah Seng                   │         3326.37 │                 │                 │
-│ S00001 │ Сберегательный  │ Lim Ah Seng                   │          680.15 │                 │                 │
-│ S00002 │ Сберегательный  │ Tan Ah Lian                   │         5809.68 │                 │                 │
-│ S00003 │ Сберегательный  │ Иван Табуреткин               │         1700.00 │                 │                 │
-│ C00009 │ Текущий         │ Степан Капуста                │         2700.00 │         2000.00 │         5000.00 │
-└────────┴─────────────────┴───────────────────────────────┴─────────────────┴─────────────────┴─────────────────┘
+PS C:\demo\src\bank_accounts> python main.py all-accounts          
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ #      ┃ Тип счета      ┃ Пользователь    ┃   Баланс ┃Мин. лимит┃Макс. лимит ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ C00005 │ Текущий        │ Robert Yeo      │  -144.62 │          │            │
+│ C00008 │ Текущий        │ Lim Ah Seng     │  3326.37 │          │            │
+│ S00001 │ Сберегательный │ Lim Ah Seng     │   680.15 │          │            │
+│ S00002 │ Сберегательный │ Tan Ah Lian     │  5809.68 │          │            │
+│ S00003 │ Сберегательный │ Иван Табуреткин │  1700.00 │          │            │
+│ C00009 │ Текущий        │ Степан Капуста  │  2700.00 │   2000.00│    5000.00 │
+└────────┴────────────────┴─────────────────┴──────────┴──────────┴────────────┘
 ```
 
 ## 7.4 Реестр всех транзакций
 
 ```shell
-PS C:\Users\Anatoly\Documents\GitHub\msu-daml-bank-accounts-demo\src\bank_accounts> python main.py all-transactions
+PS C:\demo\src\bank_accounts> python main.py all-transactions
 ┏━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
 ┃ Дата       ┃ Счет # ┃         Депозит ┃        Списание ┃
 ┡━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
