@@ -1,3 +1,6 @@
 # msu-daml-bank-accounts-demo
 
-Bank accounts python demo
+### DEMO sample: "Система управления банковскими счетами"
+
+![pic](pic.png)
+
